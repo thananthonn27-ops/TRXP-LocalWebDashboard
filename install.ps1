@@ -1,10 +1,12 @@
 # BY TRXP Local Web Dashboard - public bootstrapper
-# Downloads the public ZIP, installs its files under LocalAppData, then starts the dashboard.
-$ErrorActionPreference = 'Stop'
-$repoBase = 'https://raw.githubusercontent.com/thananthonn27-ops/TRXP-LocalWebDashboard/main'
-
 $repoBase = 'https://raw.githubusercontent.com/thananthonn27-ops/BY-TRXP-LocalWebDashboard/main'
 $zipUrl = "$repoBase/BY_TRXP_LocalWebDashboard_FIVEM_ApplyOnly_FixINI.zip"
+$ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+
+$repoBase = 'https://raw.githubusercontent.com/thananthonn27-ops/TRXP-LocalWebDashboard/main'
+$zipUrl = "$repoBase/BY_TRXP_LocalWebDashboard_FIVEM_ApplyOnly_FixINI.zip"
+
 $installRoot = Join-Path $env:LOCALAPPDATA 'BY-TRXP\LocalWebDashboard'
 $workRoot = Join-Path $env:TEMP ('BYTRXP-Install-' + [guid]::NewGuid().ToString('N'))
 $zipPath = Join-Path $workRoot 'package.zip'
