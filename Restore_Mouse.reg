@@ -1,0 +1,29 @@
+Windows Registry Editor Version 5.00
+
+; ==========================
+; Mouse Tweaks
+; ==========================
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"MouseSpeed"="0"
+"MouseThreshold1"="0"
+"MouseThreshold2"="0"
+"MouseSensitivity"="10"
+
+; ==========================
+; Keyboard Tweaks
+; ==========================
+
+[HKEY_CURRENT_USER\Control Panel\Keyboard]
+"KeyboardDelay"="0"
+"KeyboardSpeed"="31"
+
+; ==========================
+; Desktop Responsiveness
+; ==========================
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"MenuShowDelay"="0"
+"HungAppTimeout"="2000"
+"WaitToKillAppTimeout"="2000"
+"LowLevelHooksTimeout"="1000"

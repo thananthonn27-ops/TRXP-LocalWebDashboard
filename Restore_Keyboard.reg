@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+; Reset Keyboard Settings
+
+[HKEY_CURRENT_USER\Control Panel\Keyboard]
+"KeyboardDelay"="1"
+"KeyboardSpeed"="31"
+
+; Reset Desktop Keyboard Hook
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"LowLevelHooksTimeout"=-

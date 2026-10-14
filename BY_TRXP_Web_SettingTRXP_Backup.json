@@ -1,0 +1,52 @@
+﻿[
+    {
+        "Name":  "Ethernet",
+        "DisplayName":  "Energy-Efficient Ethernet",
+        "RegistryKeyword":  "*EEE",
+        "RegistryValue":  [
+                              "0"
+                          ],
+        "DisplayValue":  "Disabled",
+        "TargetDisplayValue":  "Disabled"
+    },
+    {
+        "Name":  "Ethernet",
+        "DisplayName":  "Flow Control",
+        "RegistryKeyword":  "*FlowControl",
+        "RegistryValue":  [
+                              "0"
+                          ],
+        "DisplayValue":  "Disabled",
+        "TargetDisplayValue":  "Disabled"
+    },
+    {
+        "Name":  "Ethernet",
+        "DisplayName":  "Interrupt Moderation",
+        "RegistryKeyword":  "*InterruptModeration",
+        "RegistryValue":  [
+                              "0"
+                          ],
+        "DisplayValue":  "Disabled",
+        "TargetDisplayValue":  "Disabled"
+    },
+    {
+        "Name":  "Ethernet",
+        "DisplayName":  "Green Ethernet",
+        "RegistryKeyword":  "EnableGreenEthernet",
+        "RegistryValue":  [
+                              "0"
+                          ],
+        "DisplayValue":  "Disabled",
+        "TargetDisplayValue":  "Disabled"
+    },
+    {
+        "Name":  "Ethernet",
+        "DisplayName":  "Power Saving Mode",
+        "RegistryKeyword":  "PowerSavingMode",
+        "RegistryValue":  [
+                              "0"
+                          ],
+        "DisplayValue":  "Disabled",
+        "TargetDisplayValue":  "Disabled"
+    }
+]

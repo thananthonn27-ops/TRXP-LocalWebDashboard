@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BY TRXP · Local Web Dashboard</title>
+<style>
+:root{color-scheme:dark;--bg:#080b12;--panel:rgba(18,24,37,.88);--panel2:rgba(25,33,49,.84);--line:rgba(156,177,212,.17);--muted:#9daac0;--text:#eff4ff;--cyan:#39e6d3;--blue:#5597ff;--orange:#ffbd69;--red:#ff697d;--green:#6de2ac;--radius:18px;--shadow:0 18px 50px rgba(0,0,0,.28)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font:15px/1.5 "Segoe UI",Tahoma,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background:linear-gradient(115deg,rgba(5,8,15,.92),rgba(5,9,18,.83) 48%,rgba(8,12,21,.95)),url('/assets/BY_TRXP_Background.png') center/cover no-repeat;opacity:.97;z-index:-2}
+body:after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 8% 0%,rgba(57,230,211,.13),transparent 34%),radial-gradient(ellipse at 100% 20%,rgba(85,151,255,.14),transparent 33%);pointer-events:none;z-index:-1}
+button{font:inherit}.shell{max-width:1240px;margin:0 auto;padding:22px 22px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0 24px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:13px}.logo{width:47px;height:47px;border-radius:13px;border:1px solid rgba(57,230,211,.42);background:linear-gradient(145deg,rgba(57,230,211,.2),rgba(85,151,255,.12));display:grid;place-items:center;font-size:22px;font-weight:900;color:var(--cyan);box-shadow:inset 0 0 18px rgba(57,230,211,.08)}.brand-name{font-size:17px;font-weight:800;letter-spacing:.09em}.brand-sub{font-size:12px;color:var(--muted);letter-spacing:.13em}.localpill{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(109,226,172,.24);background:rgba(109,226,172,.08);border-radius:999px;color:#b5f8d5;font-size:12px;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.hero{display:grid;grid-template-columns:1fr 240px;align-items:center;gap:22px;padding:28px 0 24px}.eyebrow{color:var(--cyan);font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase}.hero h1{margin:8px 0 8px;font-size:clamp(27px,4vw,43px);line-height:1.1;letter-spacing:-.035em}.hero h1 span{background:linear-gradient(100deg,#f4f8ff 5%,var(--cyan) 70%,#86b8ff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{margin:0;color:#aab6c9;max-width:700px}.banner{height:125px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(90deg,rgba(8,10,17,.1),rgba(8,10,17,.3)),url('/assets/BY_TRXP_Banner.png') center 38%/cover;box-shadow:var(--shadow);position:relative;overflow:hidden}.banner:after{content:"TRXP";position:absolute;right:11px;bottom:3px;font-size:27px;letter-spacing:.14em;font-weight:900;color:rgba(255,255,255,.76);text-shadow:0 1px 16px #000}
+.statusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin:0 0 24px}.statuscard{border:1px solid var(--line);background:rgba(14,19,31,.8);border-radius:15px;padding:15px 16px;min-height:88px;backdrop-filter:blur(14px)}.statuslabel{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px}.statusvalue{font-size:17px;font-weight:750;margin-top:7px;overflow-wrap:anywhere}.statusvalue.small{font-size:14px}.state-ok{color:var(--green)}.state-warn{color:var(--orange)}
+.specgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:13px;margin:0 0 25px}.specitem{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(124,154,197,.19);background:linear-gradient(145deg,rgba(19,28,43,.92),rgba(9,15,26,.9));border-radius:17px;padding:17px 18px;min-width:0;box-shadow:0 16px 38px rgba(0,0,0,.18);transition:transform .18s,border-color .18s,background .18s}.specitem:before{content:"";position:absolute;z-index:-1;width:130px;height:130px;right:-60px;top:-75px;border-radius:50%;background:var(--spec-glow,rgba(57,230,211,.17));filter:blur(38px);opacity:.8}.specitem:after{content:attr(data-index);position:absolute;right:15px;bottom:-20px;font:900 64px/1 Consolas,monospace;color:rgba(230,242,255,.025);letter-spacing:-.08em;z-index:-1}.specitem:hover{transform:translateY(-3px);border-color:rgba(57,230,211,.42);background:linear-gradient(145deg,rgba(23,35,53,.96),rgba(10,16,28,.95))}.specitem:nth-child(1){grid-column:span 6}.specitem:nth-child(2){grid-column:span 6}.specitem:nth-child(n+3){grid-column:span 4}.speccardhead{display:flex;align-items:center;gap:11px;margin-bottom:15px}.spec-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;border:1px solid rgba(57,230,211,.22);background:linear-gradient(145deg,rgba(57,230,211,.12),rgba(85,151,255,.08));color:var(--cyan);font:700 18px/1 Consolas,monospace;flex:none;box-shadow:inset 0 0 16px rgba(57,230,211,.05)}.spec-icon.blue{border-color:rgba(85,151,255,.3);color:#86b5ff;background:linear-gradient(145deg,rgba(85,151,255,.15),rgba(85,151,255,.04))}.spec-icon.violet{border-color:rgba(177,127,255,.3);color:#c8a9ff;background:linear-gradient(145deg,rgba(177,127,255,.14),rgba(177,127,255,.04))}.spec-icon.orange{border-color:rgba(255,189,105,.28);color:#ffca82;background:linear-gradient(145deg,rgba(255,189,105,.12),rgba(255,189,105,.04))}.speclabel{font-size:10px;letter-spacing:.15em;color:#90a3bf;font-weight:800;margin-bottom:3px}.specsubtitle{font-size:10px;color:#677b98;letter-spacing:.04em}.specvalue{font-size:14px;font-weight:680;white-space:pre-line;overflow-wrap:anywhere;color:#ecf4ff;min-height:20px;line-height:1.55}.specvalue.dim{color:#91a2bb;font-weight:450;font-size:11px;margin-top:5px}.specitem:nth-child(1) .specvalue,.specitem:nth-child(2) .specvalue{font-size:15px}.spec-item-footer{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:15px;padding-top:11px;border-top:1px solid rgba(145,166,197,.1);font-size:9px;color:#6e83a0;letter-spacing:.1em;text-transform:uppercase}.spec-online{display:inline-flex;align-items:center;gap:6px;color:#87eac0}.spec-online:before{content:"";width:5px;height:5px;border-radius:50%;background:#6de2ac;box-shadow:0 0 9px rgba(109,226,172,.8)}.spec-head-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.spec-state{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(109,226,172,.18);background:rgba(109,226,172,.06);color:#9ae9c5;padding:6px 9px;border-radius:8px;font-size:9px;letter-spacing:.1em;font-weight:800;white-space:nowrap}.spec-state:before{content:"";display:block;width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.pc-profile{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(275px,.75fr);gap:22px;border:1px solid rgba(57,230,211,.24);border-radius:22px;padding:23px 25px;margin:0 0 15px;background:linear-gradient(115deg,rgba(14,26,39,.96),rgba(13,19,33,.94) 57%,rgba(17,23,41,.94));box-shadow:0 22px 60px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.035)}.pc-profile:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 55%,rgba(57,230,211,.045) 55.1%,transparent 55.5%),radial-gradient(ellipse at 12% 100%,rgba(57,230,211,.12),transparent 38%);pointer-events:none}.pc-profile:after{content:"";position:absolute;right:-85px;top:-160px;width:320px;height:320px;border:1px solid rgba(57,230,211,.09);border-radius:50%;box-shadow:0 0 0 28px rgba(57,230,211,.018),0 0 0 56px rgba(57,230,211,.014);pointer-events:none}.profile-main,.profile-side{position:relative;z-index:1;min-width:0}.profile-ident{display:flex;align-items:center;gap:10px;color:#8fa5c2;font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.profile-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:linear-gradient(140deg,rgba(57,230,211,.18),rgba(85,151,255,.12));border:1px solid rgba(57,230,211,.3);color:var(--cyan);font-weight:950;font-size:12px;letter-spacing:-.04em}.profile-kicker{margin:24px 0 8px;color:var(--cyan);font:800 10px/1.4 Consolas,monospace;letter-spacing:.18em}.profile-title{font-size:clamp(20px,2.7vw,31px);line-height:1.18;font-weight:850;letter-spacing:-.04em;margin:0 0 8px;overflow-wrap:anywhere}.profile-cpu{font-size:clamp(18px,2.3vw,27px);background:linear-gradient(100deg,#f5f9ff 0%,#c1f8f0 78%,#90bdff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.profile-desc{font-size:12px;color:#9caec7;margin:0;overflow-wrap:anywhere}.profile-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.profile-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(142,166,204,.17);background:rgba(255,255,255,.035);padding:7px 10px;border-radius:8px;color:#b8c8dd;font-size:10px}.profile-chip b{color:#edf7ff;font-weight:800}.profile-side{display:flex;flex-direction:column;justify-content:center;gap:12px}.profile-mini{padding:13px 14px;border:1px solid rgba(142,166,204,.15);border-radius:13px;background:rgba(4,10,19,.33);min-width:0}.profile-mini-label{display:flex;justify-content:space-between;gap:8px;color:#7f96b4;font-size:9px;letter-spacing:.14em;font-weight:800;margin-bottom:7px}.profile-mini-label span{color:var(--cyan)}.profile-mini-main{font-size:13px;font-weight:750;line-height:1.5;overflow-wrap:anywhere}.profile-mini-sub{font-size:10px;color:#8194af;margin-top:4px;overflow-wrap:anywhere}.ram-track{height:6px;border-radius:999px;background:rgba(125,149,183,.17);overflow:hidden;margin-top:12px}.ram-fill{width:0;height:100%;border-radius:999px;background:linear-gradient(90deg,#39e6d3,#5597ff);box-shadow:0 0 14px rgba(57,230,211,.5);transition:width .45s ease}.ram-fill.high{background:linear-gradient(90deg,#ffbd69,#ff697d);box-shadow:0 0 14px rgba(255,105,125,.4)}.ram-legend{display:flex;justify-content:space-between;gap:8px;margin-top:7px;color:#7f94b1;font-size:9px}.spec-section-head{align-items:center;margin-top:31px}.spec-section-head h2{font-size:20px;letter-spacing:.01em}.spec-section-head h2 em{font-style:normal;color:var(--cyan)}.spec-section-head p{margin-top:5px}.spec-grid-empty{font-size:12px;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:28px 0 13px}.section-head h2{font-size:18px;margin:0;letter-spacing:-.02em}.section-head p{font-size:12px;color:var(--muted);margin:3px 0 0}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(22,29,44,.91),rgba(12,17,28,.9));padding:20px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}.card:before{content:"";position:absolute;width:140px;height:140px;border-radius:50%;background:var(--glow,rgba(57,230,211,.08));filter:blur(60px);top:-84px;right:-70px;pointer-events:none}.cardhead{display:flex;align-items:center;gap:12px;margin-bottom:11px}.icon{width:43px;height:43px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);font-size:20px;flex:none}.card h3{font-size:16px;margin:0 0 2px}.card .sub{font-size:12px;color:var(--muted)}.card p{margin:12px 0 16px;color:#a8b4c7;font-size:13px;min-height:57px}.actions{display:flex;flex-direction:column;gap:8px}.btn{border:1px solid rgba(120,151,199,.26);background:rgba(126,148,186,.1);color:var(--text);padding:10px 13px;border-radius:11px;cursor:pointer;text-align:left;font-weight:650;font-size:13px;transition:transform .14s,border .14s,background .14s;display:flex;justify-content:space-between;align-items:center;gap:9px}.btn:hover{transform:translateY(-1px);border-color:rgba(57,230,211,.45);background:rgba(57,230,211,.09)}.btn:disabled{opacity:.53;cursor:wait;transform:none}.btn.primary{background:linear-gradient(100deg,rgba(36,181,169,.19),rgba(60,120,220,.16));border-color:rgba(57,230,211,.35)}.btn.warn{border-color:rgba(255,189,105,.28);background:rgba(255,189,105,.07)}.btn.danger{border-color:rgba(255,105,125,.29);background:rgba(255,105,125,.06)}.btn .arrow{color:var(--muted);font-size:17px}.tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.06em;padding:4px 7px;border-radius:6px;background:rgba(255,255,255,.06);color:#bcc8dc;margin-left:5px}.fivem-zone{position:relative;isolation:isolate;overflow:hidden;margin:30px 0 24px;padding:22px;border:1px solid rgba(57,230,211,.27);border-radius:23px;background:linear-gradient(130deg,rgba(14,24,39,.96),rgba(10,16,29,.96) 60%,rgba(20,15,38,.94));box-shadow:0 24px 68px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.035)}.fivem-zone:before{content:"";position:absolute;z-index:-1;right:-70px;top:-140px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(57,230,211,.14),rgba(85,151,255,.06) 43%,transparent 70%);pointer-events:none}.fivem-zone:after{content:"FIVEM";position:absolute;z-index:-1;right:24px;top:7px;font:950 clamp(52px,9vw,116px)/1 Consolas,monospace;letter-spacing:-.09em;color:rgba(222,242,255,.025);pointer-events:none}.fivem-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin:0 0 18px}.fivem-heading h2{font-size:clamp(29px,4vw,43px);line-height:1.02;letter-spacing:-.055em;margin:7px 0 8px;font-weight:950}.fivem-heading h2 span{font-size:clamp(11px,1.5vw,15px);font-weight:700;letter-spacing:.12em;color:#99b4d2;display:inline-block;vertical-align:middle;margin-left:5px}.fivem-heading p{font-size:12px;color:#a8b9ce;max-width:760px;margin:0}.fivem-badge{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px;border:1px solid rgba(57,230,211,.22);background:rgba(57,230,211,.045);border-radius:12px;padding:10px 13px;color:#a5fff0;font:800 10px/1.5 Consolas,monospace;letter-spacing:.12em}.fivem-badge span{color:#7f93b0;font-size:9px}.fivem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.fivem-zone .card{background:linear-gradient(145deg,rgba(21,30,47,.95),rgba(10,15,26,.94));border-color:rgba(135,161,205,.19)}.fivem-path{margin:0 0 8px;padding:10px 11px;border:1px solid rgba(125,154,197,.15);background:rgba(3,8,16,.35);border-radius:9px;font:11px/1.5 Consolas,monospace;color:#8fa6c5;overflow-wrap:anywhere}.fivem-status{display:inline-flex;gap:8px;align-items:center;font-size:11px;font-weight:750;color:#9be9c6;margin:0 0 12px}.fivem-status:before{content:"";width:6px;height:6px;display:inline-block;border-radius:100%;background:#6de2ac;box-shadow:0 0 9px rgba(109,226,172,.7)}.fivem-status.warn{color:#ffca82}.fivem-status.warn:before{background:#ffbd69;box-shadow:0 0 9px rgba(255,189,105,.6)}.fivem-values{margin:0 0 12px;padding:10px 11px;border:1px solid rgba(57,230,211,.15);border-radius:9px;background:rgba(57,230,211,.035);font:11px/1.7 Consolas,monospace;color:#b6d9e4;overflow-wrap:anywhere}.fivem-values strong{display:block;font:800 9px/1.5 Consolas,monospace;letter-spacing:.12em;color:#78a8bf;margin-bottom:4px}.fivem-doc-link{display:inline-block;color:#8beadd;text-decoration:none;border-bottom:1px solid rgba(139,234,221,.35);margin-top:7px}.fivem-doc-link:hover{color:#fff}.notice{display:flex;gap:11px;border:1px solid rgba(255,189,105,.22);background:rgba(255,189,105,.055);padding:14px 16px;border-radius:14px;margin-top:18px;color:#d4c4ad;font-size:12px}.notice strong{color:#ffcf92}.logbox{border:1px solid var(--line);border-radius:var(--radius);background:rgba(9,13,22,.8);padding:18px;margin-top:16px}.loghead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.loghead h3{margin:0;font-size:15px}.loglist{display:flex;flex-direction:column;gap:9px;max-height:220px;overflow:auto}.logitem{font-size:12px;color:#b9c4d5;padding:9px 11px;border-radius:9px;background:rgba(255,255,255,.035);border-left:2px solid var(--cyan);overflow-wrap:anywhere}.logitem.error{border-left-color:var(--red);color:#ffc4cc}.logtime{color:#71839d;margin-right:8px;font-variant-numeric:tabular-nums}.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#75839a;font-size:11px;margin-top:22px}.footbtn{border:0;background:none;color:#7f91ab;text-decoration:underline;cursor:pointer;font-size:11px;padding:0}.toast{position:fixed;bottom:18px;right:18px;max-width:min(440px,calc(100vw - 36px));padding:14px 16px;border-radius:13px;background:#161f2f;border:1px solid rgba(57,230,211,.35);box-shadow:var(--shadow);white-space:pre-wrap;font-size:13px;transform:translateY(140%);opacity:0;transition:.24s;z-index:9}.toast.show{transform:translateY(0);opacity:1}.toast.error{border-color:rgba(255,105,125,.55)}.spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.22);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:920px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.specgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.statusgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr 180px}.banner{height:104px}}
+@media(max-width:620px){.shell{padding:14px 13px 30px}.specgrid{grid-template-columns:1fr}.topbar{align-items:flex-start}.localpill{font-size:10px;padding:7px 9px}.brand-sub{font-size:10px}.hero{grid-template-columns:1fr;padding:24px 0 18px}.banner{display:none}.cards{grid-template-columns:1fr}.statusgrid{gap:8px}.statuscard{padding:12px;min-height:78px}.statusvalue{font-size:15px}.section-head{align-items:start}.card p{min-height:0}}
+
+@media(max-width:920px){.fivem-grid{grid-template-columns:1fr}.pc-profile{grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:16px;padding:20px}.specgrid{grid-template-columns:repeat(12,minmax(0,1fr))}.specitem:nth-child(n){grid-column:span 6}.spec-section-head{align-items:flex-start}}
+@media(max-width:620px){.fivem-zone{padding:15px}.fivem-heading{display:block}.fivem-badge{display:inline-flex;align-items:flex-start;margin-top:12px}.fivem-heading h2 span{display:block;margin:7px 0 0}.fivem-grid{grid-template-columns:1fr}.pc-profile{grid-template-columns:1fr;padding:18px;gap:18px}.profile-kicker{margin-top:19px}.profile-side{display:grid;grid-template-columns:1fr}.specgrid{grid-template-columns:repeat(12,minmax(0,1fr))}.specitem:nth-child(n){grid-column:span 12}.spec-head-actions{justify-content:flex-start}.spec-section-head{display:block}.spec-head-actions{margin-top:10px}.specvalue{font-size:13px}.specitem{padding:15px}.profile-mini-main{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand"><div class="logo">T</div><div><div class="brand-name">BY TRXP</div><div class="brand-sub">LOCAL WEB DASHBOARD</div></div></div>
+    <div class="localpill"><span class="dot"></span> LOCAL ONLY · WINDOWS CONTROL</div>
+  </header>
+  <section class="hero">
+    <div><div class="eyebrow">Gaming Performance Toolkit</div><h1>Control your PC.<br><span>Play with TRXP.</span></h1><p>แดชบอร์ดควบคุม Windows บนเครื่องนี้ ผ่าน Edge/Chrome โดยตรง ไม่ส่งข้อมูลออกอินเทอร์เน็ต</p></div>
+    <div class="banner" aria-label="BY TRXP background"></div>
+  </section>
+  <section class="statusgrid" aria-label="System status">
+    <div class="statuscard"><div class="statuslabel">POWER PLAN <span>⚡</span></div><div class="statusvalue" id="powerValue">กำลังตรวจสอบ…</div></div>
+    <div class="statuscard"><div class="statuslabel">ADMIN ACCESS <span>◈</span></div><div class="statusvalue" id="adminValue">กำลังตรวจสอบ…</div></div>
+    <div class="statuscard"><div class="statuslabel">RAMMAP <span>▦</span></div><div class="statusvalue" id="ramValue">กำลังตรวจสอบ…</div></div>
+    <div class="statuscard"><div class="statuslabel">BACKUP STATUS <span>⛨</span></div><div class="statusvalue small" id="backupValue">กำลังตรวจสอบ…</div></div>
+    <div class="statuscard"><div class="statuslabel">NETWORK <span>⌁</span></div><div class="statusvalue small" id="networkValue">กำลังตรวจสอบ…</div></div>
+  </section>
+
+  <div class="section-head spec-section-head"><div><div class="eyebrow">01 / HARDWARE PROFILE</div><h2>PC SPECS <em>· SYSTEM ID</em></h2><p>ข้อมูลฮาร์ดแวร์จาก Windows เครื่องนี้ · อ่านอย่างเดียว · ไม่ส่งออกอินเทอร์เน็ต</p></div><div class="spec-head-actions"><span class="tag">LOCAL READ-ONLY</span><span class="spec-state">SYSTEM DETECTED</span></div></div>
+  <section class="pc-profile" aria-label="System identity">
+    <div class="profile-main">
+      <div class="profile-ident"><span class="profile-mark">TR</span><span>YOUR HARDWARE PROFILE <span style="color:#526783">/</span> RIG OVERVIEW</span></div>
+      <div class="profile-kicker">PROCESSOR / CENTRAL UNIT</div>
+      <h3 class="profile-title"><span class="profile-cpu" id="specCPU">กำลังอ่านข้อมูล CPU…</span></h3>
+      <p class="profile-desc" id="specCPUCores">กำลังตรวจสอบจำนวน Core / Thread…</p>
+      <div class="profile-chips"><span class="profile-chip">OS <b id="profileOSChip">WINDOWS</b></span><span class="profile-chip">STATUS <b style="color:#91eac1">LOCAL SCAN</b></span><span class="profile-chip">MODE <b>READ ONLY</b></span></div>
+    </div>
+    <div class="profile-side">
+      <div class="profile-mini"><div class="profile-mini-label">OPERATING SYSTEM <span>01 / OS</span></div><div class="profile-mini-main" id="specWindows">กำลังอ่านข้อมูล Windows…</div><div class="profile-mini-sub" id="specWindowsVersion">กำลังตรวจสอบเวอร์ชัน…</div></div>
+      <div class="profile-mini"><div class="profile-mini-label">SYSTEM MEMORY <span>02 / RAM</span></div><div class="profile-mini-main" id="specRAMSummary">กำลังอ่านข้อมูล RAM…</div><div class="profile-mini-sub" id="specRAMMeta">คำนวณหน่วยความจำที่พร้อมใช้งาน</div><div class="ram-track" role="progressbar" aria-label="RAM usage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="ramTrack"><div class="ram-fill" id="ramFill"></div></div><div class="ram-legend"><span id="ramUsedLabel">USED —</span><span id="ramAvailLabel">AVAILABLE —</span></div></div>
+    </div>
+  </section>
+  <section class="specgrid" aria-label="PC specifications">
+    <article class="specitem" data-index="03" style="--spec-glow:rgba(85,151,255,.22)"><div class="speccardhead"><div class="spec-icon blue">GPU</div><div><div class="speclabel">GRAPHICS PROCESSOR</div><div class="specsubtitle">DISPLAY / VIDEO ADAPTER</div></div></div><div class="specvalue" id="specGPU">กำลังอ่านข้อมูลการ์ดจอ…</div><div class="spec-item-footer"><span>GRAPHICS</span><span class="spec-online">DETECTED</span></div></article>
+    <article class="specitem" data-index="04" style="--spec-glow:rgba(177,127,255,.2)"><div class="speccardhead"><div class="spec-icon violet">MB</div><div><div class="speclabel">MOTHERBOARD</div><div class="specsubtitle">BASEBOARD / SYSTEM BOARD</div></div></div><div class="specvalue" id="specBoard">กำลังอ่านข้อมูลเมนบอร์ด…</div><div class="spec-item-footer"><span>PLATFORM</span><span class="spec-online">DETECTED</span></div></article>
+    <article class="specitem" data-index="05" style="--spec-glow:rgba(255,189,105,.19)"><div class="speccardhead"><div class="spec-icon orange">SSD</div><div><div class="speclabel">STORAGE DEVICES</div><div class="specsubtitle">DISK MODEL / CAPACITY</div></div></div><div class="specvalue" id="specStorage">กำลังอ่านข้อมูลดิสก์…</div><div class="spec-item-footer"><span>STORAGE</span><span class="spec-online">DETECTED</span></div></article>
+    <article class="specitem" data-index="06" style="--spec-glow:rgba(57,230,211,.18)"><div class="speccardhead"><div class="spec-icon">NET</div><div><div class="speclabel">ACTIVE NETWORK</div><div class="specsubtitle">INTERFACE / LINK SPEED</div></div></div><div class="specvalue" id="specNIC">กำลังอ่านข้อมูลเครือข่าย…</div><div class="spec-item-footer"><span>CONNECTIVITY</span><span class="spec-online">LOCAL SCAN</span></div></article>
+  </section>
+
+  <section class="fivem-zone" id="fivemSection" aria-label="FiveM controls">
+    <div class="fivem-heading">
+      <div><div class="eyebrow">02 / GAME PROFILE · CITIZENFX</div><h2>FIVEM <span>CLIENT SETTINGS</span></h2><p>เขียนโปรไฟล์ TRXP FIVEM ลง CitizenFX.ini โดยตรง และแยก Cache ไว้ในหมวด FiveM โดยเฉพาะ</p></div>
+      <div class="fivem-badge">FIVEM / TRXP<span>LOCAL CONFIG ONLY</span></div>
+    </div>
+    <div class="fivem-grid">
+      <article class="card" style="--glow:rgba(57,230,211,.16)">
+        <div class="cardhead"><div class="icon">CFG</div><div><h3>CitizenFX.ini · TRXP Custom Profile</h3><div class="sub">Apply INI Profile · Auto backup copy</div></div></div>
+        <p>เขียนค่า [Renderer], [System], [GameTweaks], [Network], [Input] และ [Streaming] ที่คุณให้ลง CitizenFX.ini จริง พร้อมสำเนาไฟล์เดิมแบบ timestamped อัตโนมัติก่อนแก้ไข ไม่มีปุ่มคืนค่าใน Dashboard</p>
+        <div class="fivem-path" id="fivemIniPath">กำลังตรวจสอบตำแหน่ง CitizenFX.ini…</div>
+        <div class="fivem-values"><strong>TRXP PROFILE SECTIONS</strong>[Game] · [Renderer] · [System]<br>[GameTweaks] · [Network] · [Input] · [Streaming]</div>
+        <div class="fivem-status warn" id="fivemIniStatus">กำลังตรวจสอบสถานะไฟล์…</div>
+        <a class="fivem-doc-link" href="https://docs.fivem.net/docs/client-manual/citizenfx/" target="_blank" rel="noopener noreferrer">เปิดเอกสาร CitizenFX.ini ของ FiveM ↗</a>
+        <div class="actions">
+          <button class="btn primary" data-action="applyFiveMConfig" data-confirm="fivemIni">Apply TRXP FIVEM INI Profile <span class="arrow">›</span></button>
+          <button class="btn" data-action="openFiveMIni">เปิด CitizenFX.ini ใน Notepad <span class="arrow">↗</span></button>
+        </div>
+      </article>
+      <article class="card" style="--glow:rgba(85,151,255,.15)">
+        <div class="cardhead"><div class="icon">CACHE</div><div><h3>FiveM Cache Cleaner</h3><div class="sub">Data Cache · Local Profile</div></div></div>
+        <p>ล้างเฉพาะโฟลเดอร์ cache, server-cache และ server-cache-priv ใน FiveM data path มาตรฐาน ปิด FiveM ก่อนเพื่อไม่ให้ไฟล์กำลังใช้งานถูกข้าม</p>
+        <div class="fivem-path">%LOCALAPPDATA%\FiveM\FiveM.app\data</div>
+        <div class="actions">
+          <button class="btn primary" data-action="clearFiveMCache" data-confirm="cache">ล้าง FiveM Cache <span class="arrow">›</span></button>
+        </div>
+      </article>
+    </div>
+    <div class="notice"><div>⚠</div><div><strong>หมายเหตุ CitizenFX.ini:</strong> โปรไฟล์ที่ขอจะถูกเขียนลงไฟล์จริง แต่เอกสาร FiveM ระบุรองรับเพียงบางคีย์ใน [Game] เท่านั้น คีย์ custom ใน [Renderer]/[System]/[GameTweaks]/[Network]/[Input]/[Streaming] อาจถูก FiveM มองข้าม และไม่รับประกัน FPS/Ping สำเนาไฟล์เดิมจะถูกเก็บไว้ข้าง CitizenFX.ini โดยไม่แสดงปุ่ม Restore</div></div>
+  </section>
+
+  <div class="section-head"><div><div class="eyebrow">03 / WINDOWS CONTROLS</div><h2>System Controls</h2><p>เปลี่ยนค่าเฉพาะเมื่อคุณกดปุ่มและยืนยันคำสั่ง</p></div><span class="tag">v2.6 · LOCAL</span></div>
+  <section class="cards">
+    <article class="card" style="--glow:rgba(57,230,211,.12)">
+      <div class="cardhead"><div class="icon">⌖</div><div><h3>SETTING TRXP — Mouse / Keyboard</h3><div class="sub">Class Driver · Registry</div></div></div>
+      <p>นำเข้า MouseDataQ.reg และ KeyboardDataQ.reg ที่คุณให้มา โดยบันทึกค่าปัจจุบันก่อนแก้ไข ต้องรีสตาร์ตเพื่อให้ค่า Driver มีผล</p>
+      <div class="actions">
+        <button class="btn primary" data-action="applyDriverReg" data-confirm="driver">Apply Mouse/Keyboard Driver REG <span class="arrow">›</span></button>
+        <button class="btn warn" data-action="restoreDriverReg" data-confirm="restoreDriver">Restore Driver REG <span class="arrow">↶</span></button>
+        <button class="btn" data-action="applyUserMouseKeyboard" data-confirm="userMouse">Apply Mouse FAST / Keyboard <span class="arrow">›</span></button>
+        <button class="btn" data-action="restoreUserMouseKeyboard" data-confirm="restoreUser">Restore Mouse / Keyboard FAST <span class="arrow">↶</span></button>
+        <button class="btn" data-action="openFilterKeys">เปิด FilterKeysSetter.exe <span class="arrow">↗</span></button>
+      </div>
+    </article>
+
+
+    <article class="card" style="--glow:rgba(57,230,211,.13)">
+      <div class="cardhead"><div class="icon">⌁</div><div><h3>NETWORK</h3><div class="sub">Network Adapter Optimizer</div></div></div>
+      <p>ปรับ Receive/Transmit Buffers ของอะแดปเตอร์ที่กำลังเชื่อมต่อ เฉพาะค่าที่ไดรเวอร์รองรับ โดยสำรองค่าเดิมก่อนและคืนค่าได้จากปุ่ม Restore การเชื่อมต่ออาจหลุดชั่วคราว</p>
+      <div class="actions">
+        <button class="btn primary" data-action="applyNetwork" data-confirm="network">Optimize Network Adapter Buffers <span class="arrow">›</span></button>
+        <button class="btn" data-action="flushDns" data-confirm="dns">Flush DNS Cache <span class="arrow">›</span></button>
+        <button class="btn warn" data-action="restoreNetwork" data-confirm="restoreNetwork">Restore Network Adapter <span class="arrow">↶</span></button>
+      </div>
+    </article>
+
+
+    <article class="card" style="--glow:rgba(255,105,125,.14)">
+      <div class="cardhead"><div class="icon">⚙</div><div><h3>SETTING TRXP — Network Latency</h3><div class="sub">Advanced Adapter + TCP/IP</div></div></div>
+      <p>ตั้ง Interrupt Moderation, Energy Efficient/Power Saving และ Flow Control เป็น Disabled เมื่อไดรเวอร์รองรับ พร้อมปรับค่า TCP global ตามรายการที่ให้มา สำรองค่าก่อนทำงาน</p>
+      <div class="actions">
+        <button class="btn primary" data-action="applySettingTRXP" data-confirm="settingTrxp">Apply Setting TRXP Network <span class="arrow">›</span></button>
+        <button class="btn warn" data-action="restoreSettingTRXP" data-confirm="restoreSettingTrxp">Restore Setting TRXP <span class="arrow">↶</span></button>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:rgba(85,151,255,.14)">
+      <div class="cardhead"><div class="icon">ϟ</div><div><h3>TRXP Power Plan</h3><div class="sub">Gaming Performance</div></div></div>
+      <p>สร้างหรือเปิดแผน TRXP จาก Balanced ตั้ง CPU min 5% / max 100%, Active Cooling และลองใช้ค่าประสิทธิภาพเสริมเมื่อ Windows รองรับ</p>
+      <div class="actions">
+        <button class="btn primary" data-action="enablePowerPlan" data-confirm="power">สร้าง / เปิด Power Plan TRXP <span class="arrow">›</span></button>
+        <button class="btn warn" data-action="restorePowerPlan" data-confirm="restorePower">Restore Power Plan เดิม <span class="arrow">↶</span></button>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:rgba(151,114,255,.14)">
+      <div class="cardhead"><div class="icon">▦</div><div><h3>RAMMap / Memory</h3><div class="sub">Microsoft Sysinternals</div></div></div>
+      <p>เปิด RAMMap สำหรับตรวจสอบการใช้หน่วยความจำ หรือทดลองล้าง Standby List เมื่อแก้ปัญหาเฉพาะหน้า ไม่แนะนำให้ล้างเป็นประจำ</p>
+      <div class="actions">
+        <button class="btn primary" data-action="openRamMap">เปิด RAMMap <span class="arrow">↗</span></button>
+        <button class="btn warn" data-action="clearStandby" data-confirm="standby">ล้าง Standby List <span class="arrow">›</span></button>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:rgba(255,189,105,.13)">
+      <div class="cardhead"><div class="icon">⌁</div><div><h3>Cleaner</h3><div class="sub">Temporary Files</div></div></div>
+      <p>ล้างเฉพาะไฟล์ชั่วคราวใน Temp มาตรฐานของ Windows ไม่แตะ Downloads, Documents หรือ Recycle Bin</p>
+      <div class="actions">
+        <button class="btn primary" data-action="cleanTemp" data-confirm="temp">ล้างขยะ Windows Temp <span class="arrow">›</span></button>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:rgba(109,226,172,.12)">
+      <div class="cardhead"><div class="icon">↶</div><div><h3>Restore Center</h3><div class="sub">Saved Original Values</div></div></div>
+      <p>คืนค่าจากไฟล์สำรองที่ BY TRXP สร้างไว้ก่อนเปลี่ยนเท่านั้น หากไม่มีสำรอง โปรแกรมจะไม่เดาค่า Windows เดิมให้เอง</p>
+      <div class="actions">
+        <button class="btn primary" data-action="restoreAll" data-confirm="restoreAll">Restore All Backups <span class="arrow">↶</span></button>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:rgba(255,105,125,.1)">
+      <div class="cardhead"><div class="icon">⏻</div><div><h3>Dashboard Session</h3><div class="sub">Local Web Host</div></div></div>
+      <p>ปิดตัวเชื่อม Local Web Dashboard เมื่อใช้งานเสร็จ หน้าเว็บควรถูกเปิดผ่านปุ่มเริ่มโปรแกรม ไม่ใช่เปิดเป็นไฟล์ HTML โดยตรง</p>
+      <div class="actions">
+        <button class="btn danger" data-action="stopServer" data-confirm="stop">ปิด Dashboard และตัวเชื่อม <span class="arrow">×</span></button>
+      </div>
+    </article>
+  </section>
+
+  <div class="notice"><div>⚠</div><div><strong>อ่านก่อนใช้:</strong> Driver REG ของคุณมี <code>ThreadPriority=31</code> ซึ่งสูงมากและอาจกระทบเสถียรภาพ ต้องมี backup และแนะนำให้รีสตาร์ตหลังใช้; ล้าง Standby List ไม่ได้เพิ่ม RAM จริง; Power Plan และการล้าง Cache ไม่รับประกัน FPS/Ping ที่ดีขึ้น</div></div>
+
+  <section class="logbox"><div class="loghead"><h3>Activity Log</h3><button class="footbtn" id="refreshBtn">รีเฟรชสถานะ</button></div><div class="loglist" id="logList"><div class="logitem"><span class="logtime">พร้อมใช้งาน</span>กำลังเชื่อมต่อ Windows Local Service…</div></div></section>
+  <footer class="footer"><span>BY TRXP v2.5 · Local-only Windows dashboard · ไม่มี analytics/remote API</span><button class="footbtn" id="exitBtn">ปิด Dashboard</button></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const TRXP_TOKEN='__TRXP_TOKEN__';
+const confirmText={
+ driver:'จะนำเข้า MouseDataQ.reg และ KeyboardDataQ.reg ตามไฟล์ที่แนบมา พร้อมสำรองค่าปัจจุบันก่อนเปลี่ยน\n\nKeyboard มี ThreadPriority=31 ซึ่งสูงมาก อาจกระทบเสถียรภาพ และต้องรีสตาร์ต Windows\n\nดำเนินการต่อหรือไม่?',
+ restoreDriver:'คืนค่า Mouse/Keyboard Driver Registry จากไฟล์สำรองเดิมที่ BY TRXP บันทึกไว้หรือไม่?',
+ userMouse:'จะเปลี่ยนค่า Mouse FAST/Keyboard ของผู้ใช้ เช่น ปิด mouse acceleration, DoubleClick 200 ms และ Keyboard Speed 31 พร้อมบันทึกค่าเดิมก่อน\n\nดำเนินการต่อหรือไม่?',
+ restoreUser:'คืนค่า Mouse/Keyboard FAST จากข้อมูลสำรองเดิมหรือไม่?',
+ power:'จะสร้าง/เปิด Power Plan TRXP โดยเก็บ GUID ของแผนปัจจุบันก่อน ค่าประสิทธิภาพอาจเพิ่มการใช้ไฟและความร้อน แต่ไม่รับประกัน FPS\n\nดำเนินการต่อหรือไม่?',
+ restorePower:'เปลี่ยนกลับไปใช้ Power Plan ที่ทำงานก่อนเปิด TRXP หรือไม่?',
+ fivemIni:'จะเขียนค่าโปรไฟล์ TRXP FIVEM ทั้ง 7 sections ลง CitizenFX.ini จริง โดยจะสร้างสำเนาไฟล์เดิมแบบ timestamped ข้างไฟล์ก่อนแก้ไข คีย์ custom อาจถูก FiveM ละเลยและไม่รับประกัน FPS/Ping. ดำเนินการต่อหรือไม่?',
+ settingTrxp:'จะปรับ Interrupt Moderation, Energy Efficient/Power Saving และ Flow Control เป็น Disabled เฉพาะค่าที่ไดรเวอร์รองรับ และเรียก netsh TCP/IP ตามรายการที่คุณส่งมา พร้อมสำรองค่า Adapter และ TCP/IP registry ก่อนดำเนินการ การเชื่อมต่ออาจหลุดชั่วคราว และบางตัวเลือกเป็น legacy/อาจไม่รองรับใน Windows รุ่นนี้.\n\nดำเนินการต่อหรือไม่?',
+ restoreSettingTrxp:'คืนค่า Adapter และนำเข้า TCP/IP registry backup ที่ Setting TRXP สร้างไว้หรือไม่? การเชื่อมต่ออาจหลุดชั่วคราว; แนะนำรีสตาร์ต Windows หลังคืนค่า.',
+ network:'จะปรับ Receive/Transmit Buffers ของ Network Adapter ที่กำลังเชื่อมต่อ โดยสำรองค่าเดิมก่อนและรีสตาร์ตอะแดปเตอร์ อาจทำให้อินเทอร์เน็ตหลุดชั่วคราว ไม่รับประกัน Ping/FPS\n\nดำเนินการต่อหรือไม่?',
+ dns:'ล้างเฉพาะ DNS Resolver Cache ของ Windows โดยไม่รีเซ็ต Network Adapter\n\nดำเนินการต่อหรือไม่?',
+ restoreNetwork:'คืนค่า Receive/Transmit Buffers ของ Network Adapter ตามข้อมูลสำรอง BY TRXP หรือไม่? อะแดปเตอร์อาจตัดการเชื่อมต่อชั่วคราว',
+ standby:'จะใช้ RAMMap ล้าง Windows Standby List ซึ่งไม่เพิ่ม RAM จริงและอาจทำให้โหลดเกม/ไฟล์ครั้งถัดไปช้าชั่วคราว\n\nดำเนินการต่อหรือไม่?',
+ temp:'จะลบรายการภายในโฟลเดอร์ Windows/User Temp มาตรฐานเท่านั้น ไฟล์ที่ใช้งานหรือไม่มีสิทธิ์จะถูกข้าม ไม่ลบ Downloads/Documents/Recycle Bin\n\nดำเนินการต่อหรือไม่?',
+ cache:'ควรปิด FiveM ก่อน ระบบจะลบเฉพาะ cache, server-cache และ server-cache-priv ในตำแหน่งมาตรฐาน ไฟล์ resource บางอย่างอาจโหลดใหม่\n\nล้างต่อหรือไม่?',
+ restoreAll:'คืนค่า Mouse/Keyboard REG, Network Adapter, Power Plan และ ข้อมูลสำรองที่รองรับจาก BY TRXP ทั้งหมดหรือไม่? ค่าที่ไม่มี backup จะไม่ถูกเดา',
+ stop:'ปิดเว็บแดชบอร์ดและตัวเชื่อม Windows ตอนนี้หรือไม่? หากต้องการใช้ต่อ ต้องกดเปิดโปรแกรมอีกครั้ง.'
+};
+const $=id=>document.getElementById(id);
+let busy=false;
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function addLog(message,error=false){const row=document.createElement('div');row.className='logitem'+(error?' error':'');const now=new Date().toLocaleTimeString('th-TH',{hour12:false});row.innerHTML='<span class="logtime">'+escapeHtml(now)+'</span>'+escapeHtml(message);$('logList').prepend(row);while($('logList').children.length>30)$('logList').lastElementChild.remove();}
+let toastTimer;
+function toast(message,error=false){const el=$('toast');el.textContent=message;el.classList.toggle('error',error);el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),6000);}
+async function api(action,confirmed=false){let response;try{response=await fetch('/api/action',{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','X-TRXP-Token':TRXP_TOKEN},body:JSON.stringify({action,confirmed})})}catch(e){throw new Error('เชื่อมต่อ BY TRXP Local Service ไม่สำเร็จ: '+(e&&e.message?e.message:'ไม่มีการตอบกลับ')+' กรุณาปิดหน้าต่างตัวเชื่อมแล้วเปิด Open-Dashboard.bat ใหม่')}const raw=await response.text();let data;try{data=JSON.parse(raw)}catch{const contentType=response.headers.get('content-type')||'unknown';const snippet=String(raw||'').trim().replace(/\s+/g,' ').slice(0,180);throw new Error('ตัวเชื่อมตอบกลับไม่ใช่ JSON (HTTP '+response.status+', '+contentType+'). '+(snippet||'ไม่ได้รับเนื้อหาตอบกลับ')+' ตรวจไฟล์ BY_TRXP_WebDashboard.log และเปิด Dashboard ใหม่')}if(!response.ok||!data.ok)throw new Error((data&&data.message)||('Request failed '+response.status));return data;}
+function textList(value){if(Array.isArray(value))return value.length?value.join('\n'):'ไม่พบข้อมูล';return value?String(value):'ไม่พบข้อมูล'}
+function renderSpecs(p){if(!p)return;const windows=p.windows||'ไม่พบข้อมูล';$('specWindows').textContent=windows;$('specWindowsVersion').textContent=p.windowsVersion||'';$('profileOSChip').textContent=windows.toUpperCase().replace(/^MICROSOFT /,'').slice(0,35);$('specCPU').textContent=p.cpu||'ไม่พบข้อมูล';$('specCPUCores').textContent=p.cpuCoreThread||'ไม่ทราบจำนวน Core / Thread';$('specRAMSummary').textContent=p.ram||'ไม่พบข้อมูล';const match=String(p.ram||'').match(/([\d.]+)\s*GB\s*total(?:\s*[·|,]\s*([\d.]+)\s*GB\s*available)?/i);let total=match?Number(match[1]):0;let available=match&&match[2]!==undefined?Number(match[2]):0;let used=Math.max(0,total-available);let pct=total>0&&match&&match[2]!==undefined?Math.min(100,Math.max(0,Math.round(used/total*100))):0;$('specRAMMeta').textContent=total>0&&match&&match[2]!==undefined?'ประมาณ '+pct+'% ถูกใช้งาน':'ข้อมูลการใช้ RAM ตามที่ Windows รายงาน';$('ramFill').style.width=pct+'%';$('ramFill').classList.toggle('high',pct>=85);$('ramTrack').setAttribute('aria-valuenow',String(pct));$('ramUsedLabel').textContent=total>0&&match&&match[2]!==undefined?'USED '+used.toFixed(1)+' GB':'USED —';$('ramAvailLabel').textContent=total>0&&match&&match[2]!==undefined?'FREE '+available.toFixed(1)+' GB':'AVAILABLE —';$('specGPU').textContent=textList(p.gpu);$('specBoard').textContent=p.motherboard||'ไม่พบข้อมูล';$('specStorage').textContent=textList(p.storage);$('specNIC').textContent=textList(p.network)}
+function renderStatus(s){if(!s)return;$('fivemIniPath').textContent=s.fiveMIniPath||'%LOCALAPPDATA%\\FiveM\\FiveM.app\\CitizenFX.ini';const iniExists=Boolean(s.fiveMIniExists);const iniBackup=Boolean(s.fiveMIniBackupAvailable);$('fivemIniStatus').textContent=iniExists?(iniBackup?'CitizenFX.ini พร้อมใช้ · พบสำเนาก่อนแก้ไข':'CitizenFX.ini พร้อมใช้ · จะสร้างสำเนาก่อน Apply'):(s.fiveMAppAvailable?'ไม่พบ CitizenFX.ini — Apply จะสร้างไฟล์ใหม่':'ยังไม่พบโฟลเดอร์ FiveM.app');$('fivemIniStatus').classList.toggle('warn',!iniExists);$('powerValue').textContent=s.activePowerPlan||'ไม่ทราบ';$('adminValue').textContent=s.isAdmin?'Administrator ✓':'ไม่มีสิทธิ์';$('adminValue').className='statusvalue '+(s.isAdmin?'state-ok':'state-warn');$('ramValue').textContent=s.ramMapAvailable?'พร้อมใช้':'ไม่พบไฟล์';$('ramValue').className='statusvalue '+(s.ramMapAvailable?'state-ok':'state-warn');const available=[s.driverBackupAvailable,s.userBackupAvailable,s.powerBackupAvailable,s.networkBackupAvailable,s.trxpSettingBackupAvailable,s.fiveMIniBackupAvailable].filter(Boolean).length;$('backupValue').textContent=available+' / 6 ประเภทสำรอง';$('backupValue').className='statusvalue small '+(available?'state-ok':'state-warn');const adapters=Array.isArray(s.activeNetworkAdapters)?s.activeNetworkAdapters:[];$('networkValue').textContent=adapters.length?adapters.slice(0,2).join(', ')+(adapters.length>2?' +'+(adapters.length-2):''):'ไม่มี Adapter ที่ Up';$('networkValue').className='statusvalue small '+(adapters.length?'state-ok':'state-warn');renderSpecs(s.pcSpecs)}
+async function refreshStatus(quiet=false){try{const data=await api('status');renderStatus(data.status);if(!quiet)addLog('รีเฟรชสถานะเครื่องแล้ว')}catch(e){addLog(e.message,true);toast(e.message,true)}}
+function setBusy(value){busy=value;document.querySelectorAll('button[data-action]').forEach(b=>{b.disabled=value});$('refreshBtn').disabled=value;$('exitBtn').disabled=value;}
+async function runAction(action,confirmKey){if(busy)return;if(confirmKey&& !window.confirm(confirmText[confirmKey]||'ยืนยันคำสั่งนี้หรือไม่?'))return;setBusy(true);const clicked=[...document.querySelectorAll('[data-action]')].find(b=>b.dataset.action===action);let oldText='';if(clicked){oldText=clicked.innerHTML;clicked.innerHTML='<span class="spinner"></span> กำลังทำงาน…'}try{const result=await api(action,Boolean(confirmKey));addLog(result.message);toast(result.message,false);if(result.status)renderStatus(result.status);if(result.stopServer){document.body.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#080b12;color:#eff4ff;font-family:Segoe UI,Arial"><div style="max-width:520px;padding:30px;border:1px solid #283449;border-radius:20px;background:#141b28"><h1>BY TRXP Dashboard ปิดแล้ว</h1><p>ตัวเชื่อม Windows หยุดทำงานแล้ว คุณสามารถปิดแท็บนี้ได้</p></div></div>'}}catch(e){addLog(e.message,true);toast(e.message,true)}finally{if(!action.includes('stopServer')){if(clicked)clicked.innerHTML=oldText;setBusy(false)}}}
+document.querySelectorAll('button[data-action]').forEach(button=>button.addEventListener('click',()=>runAction(button.dataset.action,button.dataset.confirm||'')));
+$('refreshBtn').addEventListener('click',()=>refreshStatus(false));$('exitBtn').addEventListener('click',()=>runAction('stopServer','stop'));
+refreshStatus(true);
+</script>
+</body>
+</html>
