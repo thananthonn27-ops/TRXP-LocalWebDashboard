@@ -1,7 +1,7 @@
 # BY TRXP Local Web Dashboard - public bootstrapper
 # Downloads the public ZIP, installs its files under LocalAppData, then starts the dashboard.
 $ErrorActionPreference = 'Stop'
-$ProgressPreference = 'SilentlyContinue'
+$repoBase = 'https://raw.githubusercontent.com/thananthonn27-ops/TRXP-LocalWebDashboard/main'
 
 $repoBase = 'https://raw.githubusercontent.com/thananthonn27-ops/BY-TRXP-LocalWebDashboard/main'
 $zipUrl = "$repoBase/BY_TRXP_LocalWebDashboard_FIVEM_ApplyOnly_FixINI.zip"
